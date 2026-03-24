@@ -9,7 +9,7 @@ def home():
     recipes = Recipe.query.all()
     return render_template('home.html', recipes = recipes)
 
-@app.route('/new_recipe')
+@app.route('/new_recipe', methods = ['GET', 'POST'])
 def new_recipe():
     form = RecipeForm()
     if form.validate_on_submit():
