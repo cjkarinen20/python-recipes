@@ -67,4 +67,9 @@ def share_recipe(recipe_id):
             db.session.commit()
             return redirect(url_for('home'))
         return render_template('share_recipe.html', recipe = recipe, users = users)
-        
+
+@app.route('/recipes/shared')
+@login_required
+def shared_recipes():
+    shared = SharedRecipe.query.filter_by(sharee_id = current_user.id).all()
+    return render_template('shared_recipes.html', shared = shared)
