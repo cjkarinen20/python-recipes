@@ -12,6 +12,13 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 migrate.init_app(app, db, render_as_batch=True)
 
-
 login_manager = LoginManager(app)
+
+from myapp.models import User
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 from myapp import routes, models
